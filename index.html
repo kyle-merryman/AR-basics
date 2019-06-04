@@ -1,8 +1,61 @@
-<script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+<script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
 <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
-<body style='margin : 0px; overflow: hidden;'>
-    <a-scene embedded artoolkit='sourceType: webcam;'>
-        <a-box position='0 0.5 0' material='opacity: 0.5;'></a-box>
-        <a-marker-camera preset='hiro'></a-marker-camera>
-    </a-scene>
+
+<body style='margin : 0px; overflow: hidden; font-family: Monospace;'><div style='position: fixed; top: 10px; width:100%; text-align: center; z-index: 1;'>
+	<a href="https://github.com/jeromeetienne/AR.js/" target="_blank">AR.js</a> - example for a-frame
+	<br/>
+	Contact me any time at <a href='https://twitter.com/jerome_etienne' target='_blank'>@jerome_etienne</a>
+</div>
+	<a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+
+        <!--assets-->
+        <a-assets>
+            <a-asset-item id="eye-obj" src="assets/models/eyeball/eyeball.obj"></a-asset-item>
+            <a-asset-item id="eye-mtl" src="assets/models/eyeball/eyeball.mtl"></a-asset-item>
+        </a-assets>
+
+		<!-- handle custom marker -->
+		<a-marker id="lotus-marker" type="pattern" url="assets/markers/plusMarker.patt" crossOrigin="null">
+			<a-box position='0 0 0' material='opacity: 0.5; side: double;color:yellow;'>
+				<!-- <a-torus-knot radius='0.26' radius-tubular='0.05'>
+					<a-animation attribute="rotation" to="360 0 0" dur="5000" easing='linear' repeat="indefinite"></a-animation>
+				</a-torus-knot> -->
+			</a-box>
+		</a-marker>
+		
+		<!-- handle kanji marker -->
+		<a-marker preset='kanji'>
+            <a-box position='0 0.5 0' material='opacity: 0.5; side: double;color:purple;'>
+                <a-text value="Hack the planet!"></a-text>
+                <a-torus-knot radius='0.26' radius-tubular='0.05' material='opacity: 0.3'>
+					<a-animation attribute="rotation" to="360 0 0" dur="5000" easing='linear' repeat="indefinite"></a-animation>
+                </a-torus-knot>
+            </a-box>
+
+            <a-image src="assets/images/nuke.jpg" position="0 0.5 1"></a-image>
+        </a-marker>
+
+		<!-- handle hiro marker -->
+		<a-marker preset='hiro'>
+            <!--model references obj and mtl file assets (line 11)-->
+            <a-entity obj-model="obj: #eye-obj; mtl: #eye-mtl"></a-entity>
+        </a-marker>       
+		
+		<!-- add a simple camera -->
+		<a-entity camera></a-entity>
+	</a-scene>
 </body>
+
+<!-------------- NOTES -----------------
+    ISSUE 1: custom marker not permitted.
+        ATTEMPT 1: Simplified marker design
+            RES: no change.
+
+    ISSUE 2: <a-image> not func, blank white. 
+        ATTEMPT 1: Try attaching to <a-plane> (https://aframe.io/docs/0.5.0/primitives/a-plane.html)
+            RES: removed camera so couldn't test.
+
+    ISSUE 3: custom .obj and .mtl files not permitted, same alert as ISSUE 1.
+        ATTEMPT 1: Change to inline from asset hosting
+            RES:
+---------------------------------------->
