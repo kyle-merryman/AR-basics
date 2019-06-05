@@ -1,5 +1,11 @@
 <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
-<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
+<!-- <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script> -->
+<script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+<script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+
+
+<!-- imported click/touch event functionality -->
+<script src="events.js"></script>
 
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'><div style='position: fixed; top: 10px; width:100%; text-align: center; z-index: 1;'>
 	<a href="https://github.com/jeromeetienne/AR.js/" target="_blank">AR.js</a> - example for a-frame
@@ -13,19 +19,10 @@
             <a-asset-item id="eye-obj" src="assets/models/eyeball/eyeball.obj"></a-asset-item>
             <a-asset-item id="eye-mtl" src="assets/models/eyeball/eyeball.mtl"></a-asset-item>
         </a-assets> -->
-
-		<!-- handle custom marker -->
-		<a-marker id="lotus-marker" type="pattern" url="assets/markers/plusMarker.patt" crossOrigin="null">
-			<a-box position='0 0 0' material='opacity: 0.5; side: double;color:yellow;'>
-				<!-- <a-torus-knot radius='0.26' radius-tubular='0.05'>
-					<a-animation attribute="rotation" to="360 0 0" dur="5000" easing='linear' repeat="indefinite"></a-animation>
-				</a-torus-knot> -->
-			</a-box>
-		</a-marker>
 		
 		<!-- handle kanji marker -->
-		<a-marker preset='kanji'>
-            <a-box position='0 0.5 0' material='opacity: 0.5; side: double;color:purple;'>
+		<a-marker preset='kanji' id='test-marker' emitevents='true' cursor='rayOrigin: mouse'>
+            <a-box id='test-box' position='0 0.5 0' material='opacity: 0.5; side: double;color:purple;'>
                 <a-text value="Hack the planet!"></a-text>
                 <a-torus-knot radius='0.26' radius-tubular='0.05' material='opacity: 0.3'>
 					<a-animation attribute="rotation" to="360 0 0" dur="5000" easing='linear' repeat="indefinite"></a-animation>
@@ -35,12 +32,20 @@
             <a-image src="assets/images/nuke.jpg" position="0 0.5 1"></a-image>
         </a-marker>
 
+		<!-- handle custom marker -->
+		<a-marker id="lotus-marker" type="pattern" url="assets/markers/plusMarker.patt" crossOrigin="null">
+			<a-box position='0 0 0' material='opacity: 0.5; side: double;color:yellow;'>
+				<!-- <a-torus-knot radius='0.26' radius-tubular='0.05'>
+					<a-animation attribute="rotation" to="360 0 0" dur="5000" easing='linear' repeat="indefinite"></a-animation>
+				</a-torus-knot> -->
+			</a-box>
+		</a-marker>        
+
 		<!-- handle hiro marker -->
 		<a-marker preset='hiro'>
             <!--model references obj and mtl file assets (line 11)-->
             <!-- <a-entity obj-model="obj: #eye-obj; mtl: #eye-mtl"></a-entity> -->
             <a-entity obj-model="obj: url(assets/models/eyeball/eyeball.obj); mtl: url(assets/models/eyeball/eyeball.mtl)"></a-entity>
-
         </a-marker>       
 		
 		<!-- add a simple camera -->
@@ -60,4 +65,9 @@
     ISSUE 3: custom .obj and .mtl files not permitted, same alert as ISSUE 1.
         ATTEMPT 1: Change to inline from asset hosting
             RES: Camera accessible, but no response to hiro marker.
+
+    ISSUE 4: click event does not respond
+        ATTEMPT 1: change script files at header to one in the example
+            RES: no change
+        ATTEMPT 2: isolate by creating copy of example in separate file
 ---------------------------------------->
