@@ -17,6 +17,8 @@ A-Frame on obj-model components:
 ( https://aframe.io/docs/0.6.0/components/obj-model.html )
 Medium article on custom 3d models:
 ( https://medium.com/@akashkuttappa/using-3d-models-with-ar-js-and-a-frame-84d462efe498 )
+Medium article on adding click events:
+( https://medium.com/chialab-open-source/how-to-handle-click-events-on-ar-js-58fcacb77c4 )
 
 Example of a custom project: 
 ( https://www.womenwhocode.com/blog/building-an-augmented-reality-treasure-hunt-with-a-frame-and-ar-js )
